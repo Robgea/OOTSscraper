@@ -4,14 +4,12 @@ import os
 import re
 import sys
 
-
-
 def comic_start():
     os.makedirs('oots', exist_ok = True)
-
     urlnum = 1
+    totalnum = 1166
 
-    while urlnum < 1166:
+    while urlnum < totalnum:
         url = f'http://www.giantitp.com/comics/oots{str(urlnum).zfill(4)}.html'
         oots_comic = requests.get(url)
         oots_soup = BeautifulSoup(oots_comic.content, "html5lib")
@@ -32,22 +30,11 @@ def comic_start():
                 imageFile.write(chunk)
             imageFile.close()
 
-
-
         urlnum += 1
 
-# open OOTS page
-
-# find latest comic
-
-# download it
+def main():
+    comic_start()
 
 
-# go to end goal
-
-comic_start()
-
-'''print(str(4).zfill(4))
-print(str(40).zfill(4))
-print(str(400).zfill(4))
-print(str(4000).zfill(4))'''
+if __name__ == '__main__':
+    main()
