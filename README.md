@@ -1,8 +1,8 @@
 ## Web Scraper for the Order of the Stick
 
-This is a simple web scraper for the Order of the Stick web comic.
+This is a persistent web scraper for the Order of the Stick web comic.
 
-It downloads every page from the webcomic, numbers it, and saves it to a directory. 
+It downloads every page from the webcomic, numbers it, and saves it to a directory. It also tracks how far along it is in the comic and will come back to any point where it stops, be it the most recently published or in case of an error in downloading the comic.
 
 It will flag any errors as they happen but as of comic #1166 that doesn't seem to happen.
 
