@@ -80,11 +80,11 @@ def comic_start():
         if next_link.endswith('#'):
             sys.stdout.write('All done!')
             sys.stdout.flush()
+            pagenum += 1
             oots_tracker['url'] = url
             oots_tracker['pagenum'] = pagenum
             oots_tracker.close()
             last_com = True
-
 
         else:
             old_url = url    
