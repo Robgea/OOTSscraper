@@ -8,12 +8,12 @@ import shelve
 def comic_start():
     os.makedirs('oots', exist_ok = True)
     oots_tracker = shelve.open('OOTS_tracker', writeback = True)
-    baseurl = 'http://www.giantitp.com/'
+    baseurl = 'http://www.giantitp.com/comics/'
     last_com = False
-
 
     if 'url' in oots_tracker:
         url = oots_tracker['url']
+        old_url = url
         pagenum = oots_tracker['pagenum']
 
         try:
@@ -21,7 +21,7 @@ def comic_start():
             oots_soup = BeautifulSoup(page.content, "html5lib")
             next_image = oots_soup.find(title = 'Next Comic')
             next_link = next_image.parent.get('href')
-            if next_link.endswith('#'):
+            if next_link.endswith(f'{url[-9:]}'):
                 sys.stdout.write('No new comics since this was last run!')
                 sys.stdout.flush()
                 last_com = True
@@ -39,20 +39,20 @@ def comic_start():
     else:
         pagenum = 1
         url = 'http://www.giantitp.com/comics/oots0001.html'
-
-
+        sys.stdout.write('Got to initial assignment.\n')
+        sys.stdout.flush()
 
     while last_com == False:
         try:
             oots_comic = requests.get(url)
             oots_soup = BeautifulSoup(oots_comic.content, "html5lib")
-            imgs = oots_soup.find_all('img',{'src':re.compile('/comics/images/.*')})
+            imgs = oots_soup.find_all('img',{'src':re.compile('https://i.giantitp.com//comics/oots/*')})
             if imgs == []:
                 sys.stdout.write(f"Couldn't find comic number {pagenum}")
                 sys.stdout.flush()
             else:
-                comimg = imgs[0].get('src')
-                comurl = f'{baseurl}{comimg}'
+                comimg = imgs[0].get('src')   
+                comurl = f'{comimg}' # I've tried embedding the previous line in this string, but it gives me an error when I do.
                 comdown = requests.get(comurl)
                 comend = comurl[-4:]
                 comname = f'oots{str(pagenum).zfill(4)}{comend}'
@@ -67,8 +67,8 @@ def comic_start():
             next_image = oots_soup.find(title = 'Next Comic')
             next_link = next_image.parent.get('href')
 
-        except:
-            sys.stdout.write(f'Error while downloading comic number {pagenum} at URL {url}. Saving progress and aborting.\n')
+        except Exception as err:
+            sys.stdout.write(f'Error while downloading comic number {pagenum} at URL {url}. Saving progress and aborting.\n Error is {err} . \n')
             sys.stdout.flush()
             oots_tracker['url'] = old_url
             oots_tracker['pagenum'] = pagenum
@@ -77,7 +77,7 @@ def comic_start():
 
 
 
-        if next_link.endswith('#'):
+        if next_link.endswith(f'{url[-9:]}'):
             sys.stdout.write('All done!')
             sys.stdout.flush()
             pagenum += 1
@@ -90,8 +90,6 @@ def comic_start():
             old_url = url    
             url = f'{baseurl}{next_link}'
             pagenum += 1
-
-
 
 def main():
     comic_start()
