@@ -16,7 +16,7 @@ If you're going to do this, and can afford to do so, consider buying something f
 
 Now that he has a patreon, you should absolutely support it there too: https://www.patreon.com/oots/
 
-If you enjoy the stripp enough that you want to download every image it's worth supporting it financially.
+If you enjoy the strip enough that you want to download every image it's worth supporting it financially.
 
 ## Future Plans
 
