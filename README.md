@@ -6,7 +6,7 @@ It downloads every page from the webcomic, numbers it, and saves it to a directo
 
 It will flag errors in the terminal but will not log them. 
 
-##Update
+## Update
 
 The Order of the Stick went through a bit of a redesign after the server shift and the creation of the patreon page. This included a significant tune-up on things behind the scenes, so the entirety of the scraper needed to be redone. If you've used an earlier version of this scraper you're probably going to need to update to this one, delete the shelve files, and run it again from scratch. My apologies. As of comic 1194 this runs without a hitch. 
 
